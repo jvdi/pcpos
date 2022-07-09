@@ -67,5 +67,5 @@ while True:
         sqliteCon.commit()
 
     # Close all database
-    msSqlCon.close()
-    sqlite_cur.close()
+    # msSqlCon.close()
+    # sqlite_cur.close()
