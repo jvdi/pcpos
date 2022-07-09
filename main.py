@@ -8,7 +8,7 @@ load_dotenv()
 
 while True:
     sleep(3)
-    print('run')
+    print('run - py not found - pcpos v0.0.0-beta')
     # Get Row from mssql
     # Exist Row: RowID, Fix_Acc1_ID, Fix_Acc2Type_ID, BedPrice, RowDesc
     ms_cur.execute('''
