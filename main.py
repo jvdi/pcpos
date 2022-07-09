@@ -85,8 +85,8 @@ while True:
         "ConnectionType": os.getenv('CONNECTION_TYPE'),
         "Amount": price_to_send,
         "AdvertisementData": doch_id,
-        # "OrderId": "90000",
-        # "SaleId": "0213541",
+        "OrderId": "90000",
+        "SaleId": "0213541",
         "RetryTimeOut": "5000,5000,5000",
         "ResponseTimeout": "180000,5000,5000"
     }
