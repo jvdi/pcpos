@@ -5,27 +5,13 @@ import requests
 import pymssql
 import sqlite3
 
+
 load_dotenv()
 
 
 # Connectiton for sqlite
 sqliteCon = sqlite3.connect('db/database.sqlite3')
 sqlite_cur = sqliteCon.cursor()
-
-
-# Create table in sqlite for detail of mssql-connection
-# try:
-#     sqlite_cur.execute('''
-#     CREATE TABLE Connection(
-#         host     TEXT NOT NULL,
-#         user     TEXT NOT NULL,
-#         password TEXT NOT NULL,
-#         db_name  TEXT
-#     );
-#     ''')
-#     print('MSSQL Connection table is create.')
-# except:
-#     print('MSSQL Connection table is already created.')
 
 
 # Create table in sqlite for save pay-log
@@ -41,12 +27,6 @@ try:
 except:
     print('Pay Tables already Created.')
 
-# Connect to MSSQL with connection detail from sqlite
-# sqlite_cur.execute('''
-# select * from `Connection`;
-# ''')
-# record = sqlite_cur.fetchone()
-
 
 # Connection for mssql
 msSqlCon = pymssql.connect(
@@ -61,7 +41,7 @@ ms_cur = msSqlCon.cursor(as_dict=True)
 
 while True:
     sleep(3)
-    # print('run - py not found - pcpos v0.0.0-beta')
+
     # Get Row from mssql
     # Exist Row: RowID, Fix_Acc1_ID, Fix_Acc2Type_ID, BedPrice, RowDesc
     ms_cur.execute('''
@@ -96,7 +76,7 @@ while True:
     SELECT * FROM pay ORDER BY id DESC;
     ''')
     last_pay_record = sqlite_cur.fetchone()
-
+    print(doch_id, ',,,', last_pay_record[0])
     if (last_pay_record[0] != doch_id):
         req = requests.post(
             'http://'+os.getenv('REST_SERVER_IP')+':8050/api/Sale', json=data)
