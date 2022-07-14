@@ -11,6 +11,17 @@ load_dotenv()
 sqliteCon = sqlite3.connect('db/database.sqlite3')
 sqlite_cur = sqliteCon.cursor()
 
+
+# Connection for mssql
+msSqlCon = pymssql.connect(
+    host=os.getenv('MSSQL_HOST'),
+    user=os.getenv('MSSQL_USER'),
+    password=os.getenv('MSSQL_PASSWORD'),
+    database=os.getenv('MSSQL_db')
+)
+ms_cur = msSqlCon.cursor(as_dict=True)  # Create a dic and move data to it
+
+
 # Create table in sqlite for save pay-log
 try:
     sqlite_cur.execute('''
@@ -23,13 +34,3 @@ try:
     print('Pay Tables -> Created')
 except:
     print('Pay Tables -> Exist')
-
-# Connection for mssql
-msSqlCon = pymssql.connect(
-    host=os.getenv('MSSQL_HOST'),
-    user=os.getenv('MSSQL_USER'),
-    password=os.getenv('MSSQL_PASSWORD'),
-    database=os.getenv('MSSQL_db')
-)
-# Get data from db and write to a dictionary
-ms_cur = msSqlCon.cursor(as_dict=True)
