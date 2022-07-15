@@ -14,7 +14,8 @@ while True:
     # Get Row from mssql
     # Exist Column: RowID, Fix_Acc1_ID, Fix_Acc2Type_ID, BedPrice, RowDesc, ...
     ms_cur.execute('''
-    SELECT * FROM DocD
+    SELECT * 
+    FROM DocD
     WHERE Fix_Acc1_ID=5 AND Fix_Acc2Type_ID=2 AND Acc2RowID=2
     ORDER BY RowID DESC;
     ''')
@@ -38,12 +39,13 @@ while True:
         "RetryTimeOut": "5000,5000,5000",
         "ResponseTimeout": "180000,5000,5000"
     }
-
+    
     # Get last sent-pay
-    sqlite_cur.execute('''
+    sqlite = SqliteDb()
+    sqlite.execute('''
     SELECT * FROM pay ORDER BY rowid DESC;
     ''')
-    last_pay_record = sqlite_cur.fetchone()
+    last_pay_record = sqlite.fetchone()
 
     if (last_pay_record[0] != doch_id):
         req = requests.post(
@@ -57,15 +59,16 @@ while True:
             print(key, ' : ', value)
 
         # Save result in sqlite pay table
-        sqlite_cur.execute('''
+        sqlite.execute('''
         INSERT INTO pay(
             id, price, status
         )VALUES(
             {}, {}, {}
         )
         '''.format(doch_id, price_to_send, json['PcPosStatusCode']))
-        sqliteCon.commit()
+        sqlite.commit()
+        
+        # Close all database
+        sqlite.close()
 
-    # Close all database
     # msSqlCon.close()
-    # sqlite_cur.close()
