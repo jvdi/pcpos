@@ -35,7 +35,7 @@ while True:
         "Amount": price_to_send,
         "AdvertisementData": doch_id,
         "OrderId": "90000",
-        "SaleId": "0213541",
+        # "SaleId": "0213541",
         "RetryTimeOut": "5000,5000,5000",
         "ResponseTimeout": "180000,5000,5000"
     }
@@ -48,10 +48,13 @@ while True:
     last_pay_record = sqlite.fetchone()
 
     if (last_pay_record[0] != doch_id):
-        req = requests.post(
-            'http://'+os.getenv('REST_SERVER_IP')+':8050/api/Sale', json=data)
-
-        json = req.json()
+        def send_prc():
+            req = requests.post(
+                'http://'+os.getenv('REST_SERVER_IP')+':8050/api/Sale', json=data)
+            global json
+            json = req.json()
+        
+        send_prc()
 
         # Show result in terminal
         for key in json:
