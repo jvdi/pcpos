@@ -26,14 +26,26 @@ class SqliteDb:
         self.sqlite_cur.close()
 
 
-# Connection for mssql
-msSqlCon = pymssql.connect(
-    host=os.getenv('MSSQL_HOST'),
-    user=os.getenv('MSSQL_USER'),
-    password=os.getenv('MSSQL_PASSWORD'),
-    database=os.getenv('MSSQL_db')
-)
-ms_cur = msSqlCon.cursor(as_dict=True)  # Create a dic and move data to it
+class MsSql:
+    def __init__(self):
+        # Connection for mssql
+        self.msSqlCon = pymssql.connect(
+            host=os.getenv('MSSQL_HOST'),
+            user=os.getenv('MSSQL_USER'),
+            password=os.getenv('MSSQL_PASSWORD'),
+            database=os.getenv('MSSQL_db')
+        )
+        # Create a dic and move data to it
+        self.ms_cur = self.msSqlCon.cursor(as_dict=True)
+
+    def execute(self, sql):
+        self.ms_cur.execute(sql)
+
+    def fetch(self):
+        return self.ms_cur
+
+    def close(self):
+        self.msSqlCon.close()
 
 
 # Create table in sqlite for save pay-log

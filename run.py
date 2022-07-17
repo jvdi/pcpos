@@ -22,6 +22,7 @@ while True:
 
     # Get Row from mssql
     # Exist Column: RowID, Fix_Acc1_ID, Fix_Acc2Type_ID, BedPrice, RowDesc, ...
+    ms_cur = MsSql()
     ms_cur.execute('''
     SELECT * 
     FROM DocD
@@ -30,11 +31,13 @@ while True:
     ''')
 
     # Get price and document id from mssql
-    for row in ms_cur:
+    for row in ms_cur.fetch():
         global price_to_send, doch_id
         price_to_send = (int(row['BedPrice'])*10)
         doch_id = row['DocH_ID']
         break
+    
+    ms_cur.close()
 
     # Set data for sending to pay-terminal
     data = {
@@ -172,7 +175,5 @@ while True:
         '''.format(doch_id, price_to_send, json['PcPosStatusCode']))
         sqlite.commit()
         
-        # Close all database
+        # Close sqlite connection
         sqlite.close()
-
-    # msSqlCon.close()
