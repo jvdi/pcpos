@@ -9,7 +9,7 @@ Getting price from MS-SQL Server and send to Payment terminal
 
 ## Requirements: ##
 - Rahkar Accounting v6.0.0
-- Microsoft SQL Server (ex. Express 2008) -> Enabale TCP/IP access on TCP-Port 1433 with a read access with (user: root - pass: toor)
+- Microsoft SQL Server (E.g. Express 2008) -> Enabale TCP/IP access on TCP-Port 1433 with a read access with (user: root - pass: toor)
 - (<i>If you want to set special user and password for MSSQL -> change it on .env file on install location of PCPosAPI </i>)
 - Sadad PCPOS Rest Service (Get from Sadad)
 
