@@ -1,6 +1,9 @@
 # PCPOS API - Special API for Special Work
 
-<img width="25%" src="https://user-images.githubusercontent.com/40993115/177423038-04da4538-c186-4445-86dd-9152adde42cb.png"/>
+<span style="float: right;">
+<img alt="pos terminal" width="40%" src="https://user-images.githubusercontent.com/40993115/177423038-04da4538-c186-4445-86dd-9152adde42cb.png"/>
+<img alt="api tkinter gui" width="40%" src="https://user-images.githubusercontent.com/40993115/179966279-a3c424e5-be8a-4406-8876-d49d5b0a3bd1.png"/>
+</span>
 
 Getting price from MS-SQL Server and send to Payment terminal
 
