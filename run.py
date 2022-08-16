@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from time import sleep
 import requests
 from pathlib import Path
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Text, Button, PhotoImage
 
 # asset directory
 OUTPUT_PATH = Path(__file__).parent
@@ -46,9 +46,6 @@ while True:
         "ConnectionType": os.getenv('CONNECTION_TYPE'),
         "DeviceType": "3",
         "Amount": price_to_send,
-        # "AdvertisementData": doch_id,
-        # "OrderId": "90000",
-        # "SaleId": "0213541",
         "RetryTimeOut": "5000,5000,5000",
         "ResponseTimeout": "180000,5000,5000"
     }
