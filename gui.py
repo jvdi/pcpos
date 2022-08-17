@@ -11,7 +11,7 @@ def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 
-def show_message(send_prc, abort_pay, json):
+def show_message(send_prc, abort_pay, json, pay_name):
     window = Tk()
     window.title('PCPos')
     window.iconbitmap('assets/pos.ico')
@@ -88,5 +88,6 @@ def show_message(send_prc, abort_pay, json):
     )
     # Print error for user
     entry_1.insert("end", json['PcPosStatus'] +
-                   '\n'+json['ResponseCodeMessage'])
+                   '\n'+json['ResponseCodeMessage']+
+                   '\n'+pay_name)
     window.mainloop()
