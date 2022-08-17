@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from time import sleep
 import requests
+import json as jsn
 
 
 load_dotenv()
@@ -32,6 +33,7 @@ while True:
 
     ms_cur.close()
 
+    # Sadad transAction
     if acc_number == 2 and price_to_send != 0:
         # Set data for sending to pay-terminal
         data = {
@@ -81,7 +83,7 @@ while True:
                     break
 
                 # Gui
-                show_message(send_prc, abort_pay, json)
+                show_message(send_prc, abort_pay, json, 'سداد')
 
             # Show result in terminal
             for key in json:
@@ -100,5 +102,125 @@ while True:
 
             # Close sqlite connection
             sqlite.close()
+    # Pec transAction
     elif acc_number == 3 and price_to_send != 0:
-        print("Pec - trans")
+        stat = 'بدون وضعیت'
+        stat_flg = True
+        filepath = os.path.join(
+            'C:/Users/Public/PEC_PCPOS/request', 'TransAction.txt'
+        )
+        # Check for install service
+        if not os.path.exists('C:/Users/Public/PEC_PCPOS/request'):
+            stat = 'سرویس تاپ نصب نیست'
+            stat_flg = False
+
+        # Get last sent-pay
+        sqlite = SqliteDb()
+        sqlite.execute('''
+        SELECT * FROM pay ORDER BY rowid DESC;
+        ''')
+        last_pay_record_id = sqlite.fetchone()
+
+        if last_pay_record_id[0] > doch_id:
+            sqlite.execute('''
+            DELETE FROM Pay WHERE id='{}';
+            '''.format(last_pay_record_id[0]))
+            sqlite.commit()
+            # Close sqlite connection
+            sqlite.close()
+        elif last_pay_record_id[0] < doch_id and stat_flg:
+            # Check for come result
+            def wait_for_result():
+                response_is_not_exits = True
+                trans_action_file = os.path.join('C:/Users/Public/PEC_PCPOS/response', 'TransAction.txt')
+                while(response_is_not_exits):
+                    if(os.path.exists(trans_action_file)):
+                        response_is_not_exits = False
+                        global stat
+                        stat = 'نتیجه درخواست رسید'
+                    else:
+                        pass
+
+            # Write TransAction for send to pay-terminal
+            def send_prc():
+                if os.path.exists('C:/Users/Public/PEC_PCPOS/response/TransAction.txt'):
+                    os.remove('C:/Users/Public/PEC_PCPOS/response/TransAction.txt')
+                file = open(filepath, 'w')
+                file.write(
+                    'Amount={}\ntype=LAN\nIP={}\nport={}'.format(
+                        price_to_send, os.getenv('PEC_IP'), os.getenv('PEC_PORT')
+                    )
+                )
+                file.close()
+                
+                # Check for sent transAction status
+                not_sent = True
+                trans_action_file = os.path.join('C:/Users/Public/PEC_PCPOS/request', 'TransAction.txt')
+                while(not_sent):
+                    if(os.path.exists(filepath)):
+                        pass
+                    else:
+                        not_sent = False
+                        global stat
+                        stat = 'درخواست ارسال شد'
+                
+                # Check for result is come?
+                wait_for_result()
+
+            send_prc()
+            
+
+            # For cancell pay
+            flag = True
+
+            def abort_pay():
+                global flag
+                flag = False
+
+            # Check response for resend or done the mission
+            while(flag):
+                filepath_resp = os.path.join('C:/Users/Public/PEC_PCPOS/response', 'TransAction.txt')
+                file = open(filepath_resp, 'r')
+                
+                txt = file.readline()
+                etxt = txt.split()
+                result = etxt[2]
+
+                def error_message(r):
+                    if r == '99':
+                        return 'لغو توسط کاربر'
+                    elif r == '51':
+                        return 'عدم موجودی کافی'
+                    elif r == '55':
+                        return 'رمز نامعتبر است'
+                    else:
+                        return 'خطای ناشناخته'
+
+                if result == '00':
+                    file.close()
+                    break
+                else:
+                    json_text = '{ "PcPosStatusCode":"'+result+'", "PcPosStatus":"'+stat+'", "ResponseCodeMessage":"'+error_message(result)+'"}'
+                    json = jsn.loads(json_text)
+                    file.close()
+                    show_message(send_prc, abort_pay, json, 'تاپ')
+            
+            os.remove('C:/Users/Public/PEC_PCPOS/response/TransAction.txt')
+
+            # Show result in terminal
+            for key in json:
+                value = json[key]
+                print(key, ' : ', value)
+
+            # Save result in sqlite pay table
+            sqlite.execute('''
+            INSERT INTO pay(
+                id, price, status
+            )VALUES(
+                {}, {}, {}
+            )
+            '''.format(doch_id, price_to_send, json['PcPosStatusCode']))
+            sqlite.commit()
+
+            # Close sqlite connection
+            sqlite.close()
