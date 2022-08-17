@@ -32,7 +32,7 @@ while True:
 
     ms_cur.close()
 
-    if acc_number == 2:
+    if acc_number == 2 and price_to_send != 0:
         # Set data for sending to pay-terminal
         data = {
             "DeviceIp": os.getenv('DEVICE_IP'),
@@ -100,5 +100,5 @@ while True:
 
             # Close sqlite connection
             sqlite.close()
-    elif acc_number == 3:
+    elif acc_number == 3 and price_to_send != 0:
         print("Pec - trans")
