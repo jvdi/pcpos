@@ -224,3 +224,5 @@ while True:
 
             # Close sqlite connection
             sqlite.close()
+        elif last_pay_record_id[0] < doch_id and stat_flg == False:
+            print(stat, ' - ', stat_flg)
