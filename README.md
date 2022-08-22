@@ -1,4 +1,4 @@
-# PCPOS API - Special API for Special Work
+# PCPOS API - Sadad and Pec
 
 <span style="float: right;">
 <img alt="pos terminal" width="40%" src="https://user-images.githubusercontent.com/40993115/177423038-04da4538-c186-4445-86dd-9152adde42cb.png"/>
