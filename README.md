@@ -7,7 +7,7 @@
 
 Getting price from MS-SQL Server and send to Payment terminal
 
-## Requirements ##
+## Requirements
 
 - Rahkar Accounting v6.0.0.0 (or v1.0.0.0 free) -> <a href="http://new.rahkarsoft.com/index.php/post161">Get Rahkar Accounting (Free)</a>
 - Microsoft SQL Server (E.g. Express 2008) -> Enabale TCP/IP access on TCP-Port 1433 with a read access with (user: PCPos_API - pass: toor)
@@ -15,7 +15,7 @@ Getting price from MS-SQL Server and send to Payment terminal
 - Sadad PCPOS <span style="color: red;">Rest</span> Service (Get from Sadad)
 - Pec Windows Service (Get From Pec or <a href="https://dl.pejvakupdates.ir/update/downloads/prince/cardReaders/parsian/install/Pec-PCPOS-WindowsService-Installer.rar">Get Service Installer</a>)
 
-## Install ##
+## Install
 
 - <a href="https://github.com/jvdi/rahkar-pcpos/releases/">Get last release setup file from here</a>
 
@@ -27,8 +27,7 @@ Getting price from MS-SQL Server and send to Payment terminal
 
 ## Run Source
 
-0. Install RahkarPOS v6.0.0.0
-1. Install Sadad Rest and Pec Windows Service - MsSql -> Add PCPos_API User to MsSQL
+1. Install RahkarPOS v6.0.0.0 or v1.0.0.0 + [Requirements](https://github.com/jvdi/rahkar-pcpos#requirements)
 2. For support Windows 7 -> recommend install Python 3.7.4
 3. Clone the repository
 4. Create a .venv in the project with -> python -m venv .venv
