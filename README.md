@@ -45,7 +45,7 @@ Getting price from MS-SQL Server and send to Payment terminal
 - Run:
 
 - pyinstaller --name=PCPosAPI  --noconsole --icon=assets\pos.ico run.py
-- Then copy folders : db, asset and fil: .env to dist/PCPosAPI and run the app
+- Then copy folders : db, asset and file: .env to dist/PCPosAPI and run the app
 
 ## Create a Setup file
 
