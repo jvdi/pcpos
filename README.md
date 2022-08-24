@@ -50,3 +50,10 @@ Getting price from MS-SQL Server and send to Payment terminal
 ## Create a Setup file
 
 - I'm using InnoSetup for it is
+
+## For Contribute
+
+* At first we appreciate about your contribution
+
+- Use issues or Email : m.javidii@yahoo.com for your suggestion or etc
+- Or Create a pull request
