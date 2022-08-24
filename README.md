@@ -14,7 +14,7 @@ Getting price from MS-SQL Server and send to Payment terminal
 - Microsoft SQL Server (E.g. Express 2008) -> Enabale TCP/IP access on TCP-Port 1433 with a read access with (user: PCPos_API - pass: toor)
 - (<i>If you want to set special user and password for MSSQL -> change it on .env file on install location of PCPosAPI </i>)
 - Enable PCPOS -> in the Sadad Payment Terminal and Pec Payment terminal
-- Enable or Install Microsoft .net framework 3.5 for Sadad Rest Correctly work
+- Enable or Install Microsoft .net framework 3.5 for Sadad Rest Correctly working
 - Sadad PCPOS Rest Service (Get from Sadad  or [Sadad Rest](https://drive.google.com/file/d/1jxvKtlQ1WPAsSeMGyPDHTnTAW6Kfu9RH/view?usp=sharing))
 - Pec Windows Service (Get From Pec or <a href="https://dl.pejvakupdates.ir/update/downloads/prince/cardReaders/parsian/install/Pec-PCPOS-WindowsService-Installer.rar">Get Service Installer</a>)
 
