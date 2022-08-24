@@ -7,21 +7,26 @@
 
 Getting price from MS-SQL Server and send to Payment terminal
 
-## Requirements: ##
-- Rahkar Accounting v6.0.0.0
+## Requirements ##
+
+- Rahkar Accounting v6.0.0.0 (or v1.0.0.0 free) -> <a href="http://new.rahkarsoft.com/index.php/post161">Get Rahkar Accounting (Free)</a>
 - Microsoft SQL Server (E.g. Express 2008) -> Enabale TCP/IP access on TCP-Port 1433 with a read access with (user: PCPos_API - pass: toor)
 - (<i>If you want to set special user and password for MSSQL -> change it on .env file on install location of PCPosAPI </i>)
-- Sadad PCPOS Rest Service (Get from Sadad)
-- Pec Windows Service (Get From Pec)
+- Sadad PCPOS <span style="color: red;">Rest</span> Service (Get from Sadad)
+- Pec Windows Service (Get From Pec or <a href="https://dl.pejvakupdates.ir/update/downloads/prince/cardReaders/parsian/install/Pec-PCPOS-WindowsService-Installer.rar">Get Service Installer</a>)
 
-## Install: ##
-* <a href="https://github.com/jvdi/rahkar-pcpos/releases/">Get last release setup file from here</a>
-* Double click on it and install simply
+## Install ##
 
-## Helpfull Details ##
+- <a href="https://github.com/jvdi/rahkar-pcpos/releases/">Get last release setup file from here</a>
+
+- Double click on it and install simply
+
+## Helpfull Details
+
 - Config file for set device ip and mssql ip and user pass and etc ... it's on -> root of Installation location -> .env file <-
 
-## Run Source ##
+## Run Source
+
 0. Install RahkarPOS v6.0.0.0
 1. Install Sadad Rest and Pec Windows Service - MsSql -> Add PCPos_API User to MsSQL
 2. For support Windows 7 -> recommend install Python 3.7.4
@@ -33,10 +38,13 @@ Getting price from MS-SQL Server and send to Payment terminal
 8. Edit .env file for your config and network design
 9. Run app with : python run.py
 
-## Compile to exe with PyInstaller ##
-* Run:
-* pyinstaller --name=PCPosAPI  --noconsole --icon=assets\pos.ico run.py
-* Then copy folders : db, asset and fil: .env to dist/PCPosAPI and run the app
+## Compile to exe with PyInstaller
 
-## Create a Setup file ##
-* I'm using InnoSetup for it is
+- Run:
+
+- pyinstaller --name=PCPosAPI  --noconsole --icon=assets\pos.ico run.py
+- Then copy folders : db, asset and fil: .env to dist/PCPosAPI and run the app
+
+## Create a Setup file
+
+- I'm using InnoSetup for it is
