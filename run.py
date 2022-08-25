@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from db.db_con import *
 from gui import tk_gui
 import os

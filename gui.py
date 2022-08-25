@@ -1,5 +1,5 @@
 from pathlib import Path
-from tkinter import Tk, Canvas, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Button, PhotoImage, scrolledtext
 
 
 # asset directory
@@ -79,12 +79,12 @@ class tk_gui:
             37.5,
             image=entry_image_1
         )
-        entry_1 = Text(
+        entry_1 = scrolledtext.ScrolledText(
             bd=0,
             bg="#C4C4C4",
             highlightthickness=0,
             font=("Aria", 15),
-            wrap='word',
+            wrap='word'
         )
         entry_1.place(
             x=0.0,
@@ -94,6 +94,7 @@ class tk_gui:
         )
         # Show log
         entry_1.insert("end", log)
+        entry_1.configure(state='disabled')
         self.window.mainloop()
 
     def show_message(self, send_prc, abort_pay, json, pay_name):
