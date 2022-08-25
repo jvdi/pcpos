@@ -1,5 +1,5 @@
 from db.db_con import *
-from gui import show_message
+from gui import tk_gui
 import os
 from dotenv import load_dotenv
 from time import sleep
@@ -83,7 +83,8 @@ while True:
                     break
 
                 # Gui
-                show_message(send_prc, abort_pay, json, 'سداد')
+                gui = tk_gui()
+                gui.show_message(send_prc, abort_pay, json, 'سداد')
 
             # Show result in terminal
             for key in json:
@@ -203,7 +204,9 @@ while True:
                     json_text = '{ "PcPosStatusCode":"'+result+'", "PcPosStatus":"'+stat+'", "ResponseCodeMessage":"'+error_message(result)+'"}'
                     json = jsn.loads(json_text)
                     file.close()
-                    show_message(send_prc, abort_pay, json, 'تاپ')
+                    # Gui
+                    gui = tk_gui()
+                    gui.show_message(send_prc, abort_pay, json, 'تاپ')
             
             os.remove('C:/Users/Public/PEC_PCPOS/response/TransAction.txt')
 
