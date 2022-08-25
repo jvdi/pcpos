@@ -22,7 +22,7 @@ class tk_gui:
         self.window.resizable(False, False)
         self.window.attributes('-topmost', True)
     
-    def show_message(self, send_prc, abort_pay, json, pay_name):
+    def canvas(self):
         self.canvas = Canvas(
             self.window,
             bg="#FFFFFF",
@@ -32,15 +32,18 @@ class tk_gui:
             highlightthickness=0,
             relief="ridge"
         )
-        # run
+    
+    def dialog(self, option_1, func_1, flag, option_2, func_2, log):
+        self.canvas()
+        # btn 1 - OK
         self.canvas.place(x=0, y=0)
         button_image_1 = PhotoImage(
-            file=relative_to_assets("button_1.png"))
+            file=relative_to_assets(option_1))
         button_1 = Button(
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: [self.window.destroy(), send_prc()],
+            command=lambda: [self.window.destroy(), func_1()],
             relief="flat"
         )
         button_1.place(
@@ -49,23 +52,26 @@ class tk_gui:
             width=90.0,
             height=46.0
         )
-        # cancell
-        button_image_2 = PhotoImage(
-            file=relative_to_assets("button_2.png"))
-        button_2 = Button(
-            image=button_image_2,
-            borderwidth=0,
-            highlightthickness=0,
-            command=lambda: [self.window.destroy(), abort_pay()],
-            relief="flat"
-        )
-        button_2.place(
-            x=203.0,
-            y=89.0,
-            width=90.0,
-            height=46.0
-        )
-
+        if flag:
+            pass
+        else:
+            # btn 2 - Cancell
+            button_image_2 = PhotoImage(
+                file=relative_to_assets(option_2))
+            button_2 = Button(
+                image=button_image_2,
+                borderwidth=0,
+                highlightthickness=0,
+                command=lambda: [self.window.destroy(), func_2()],
+                relief="flat"
+            )
+            button_2.place(
+                x=203.0,
+                y=89.0,
+                width=90.0,
+                height=46.0
+            )
+        # TextAria
         entry_image_1 = PhotoImage(
             file=relative_to_assets("entry_1.png"))
         entry_bg_1 = self.canvas.create_image(
@@ -79,8 +85,6 @@ class tk_gui:
             highlightthickness=0,
             font=("Aria", 15),
             wrap='word',
-
-
         )
         entry_1.place(
             x=0.0,
@@ -88,8 +92,17 @@ class tk_gui:
             width=300.0,
             height=73.0
         )
-        # Print error for user
-        entry_1.insert("end", json['PcPosStatus'] +
-                       '\n'+json['ResponseCodeMessage']+
-                       '\n'+pay_name)
+        # Show log
+        entry_1.insert("end", log)
         self.window.mainloop()
+
+    def show_message(self, send_prc, abort_pay, json, pay_name):
+        # Do TransAction again btn or Cancell TransAction btn
+        self.dialog(
+            'button_1.png',
+            send_prc,
+            False,
+            'button_2.png',
+            abort_pay,
+            json['PcPosStatus']+'\n'+json['ResponseCodeMessage']+'\n'+pay_name
+        )
