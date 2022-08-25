@@ -37,10 +37,10 @@ while True:
     if acc_number == 2 and price_to_send != 0:
         # Set data for sending to pay-terminal
         data = {
-            "DeviceIp": os.getenv('DEVICE_IP'),
-            "DevicePort": os.getenv('DEVICE_PORT'),
-            "ConnectionType": os.getenv('CONNECTION_TYPE'),
-            "DeviceType": "3",
+            "DeviceIp": os.getenv('SADAD_DEVICE_IP'),
+            "DevicePort": os.getenv('SADAD_DEVICE_PORT'),
+            "ConnectionType": os.getenv('SADAD_CON_TYPE'),
+            "DeviceType": os.getenv('SADAD_DEVICE_TYPE'),
             "Amount": price_to_send,
             "RetryTimeOut": "5000,5000,5000",
             "ResponseTimeout": "180000,5000,5000"
@@ -64,7 +64,7 @@ while True:
             # Send request to pay-terminal
             def send_prc():
                 req = requests.post(
-                    'http://'+os.getenv('REST_SERVER_IP')+':8050/api/Sale', json=data)
+                    'http://'+os.getenv('SADAD_REST_API_IP')+':8050/api/Sale', json=data)
                 global json
                 json = req.json()
 
@@ -147,8 +147,8 @@ while True:
                     os.remove('C:/Users/Public/PEC_PCPOS/response/TransAction.txt')
                 file = open(filepath, 'w')
                 file.write(
-                    'Amount={}\ntype=LAN\nIP={}\nport={}'.format(
-                        price_to_send, os.getenv('PEC_IP'), os.getenv('PEC_PORT')
+                    'Amount={}\ntype={}\nIP={}\nport={}'.format(
+                        price_to_send, os.getenv('PEC_CON_TYPE'), os.getenv('PEC_DEVICE_IP'), os.getenv('PEC_DEVICE_PORT')
                     )
                 )
                 file.close()
