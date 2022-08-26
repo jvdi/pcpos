@@ -1,7 +1,8 @@
-import pymssql
-import sqlite3
 from dotenv import load_dotenv
+import sqlite3
+import pymssql
 import os
+import gui
 
 
 load_dotenv()
@@ -28,13 +29,24 @@ class SqliteDb:
 
 class MsSql:
     def __init__(self):
-        # Connection for mssql
-        self.msSqlCon = pymssql.connect(
-            host=os.getenv('MSSQL_HOST'),
-            user=os.getenv('MSSQL_USER'),
-            password=os.getenv('MSSQL_PASSWORD'),
-            database=os.getenv('MSSQL_db')
-        )
+        try:
+            # Connection for mssql
+            self.msSqlCon = pymssql.connect(
+                host=os.getenv('MSSQL_HOST'),
+                user=os.getenv('MSSQL_USER'),
+                password=os.getenv('MSSQL_PASSWORD'),
+                database=os.getenv('MSSQL_db')
+            )
+        except:
+            g = gui.tk_gui()
+            g.dialog(
+                'button_3.png',
+                exit,
+                True,
+                None,
+                None,
+                'ارتباط با بانک اطلاعاتی با مشکل مواجه شد لطفا اتصالات را برسی کنید\nو برنامه را مجدد باز کنید'
+            )
         # Create a dic and move data to it
         self.ms_cur = self.msSqlCon.cursor(as_dict=True)
 
