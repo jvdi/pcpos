@@ -21,7 +21,7 @@ class tk_gui:
         self.window.configure(bg="#FFFFFF")
         self.window.resizable(False, False)
         self.window.attributes('-topmost', True)
-    
+
     def canvas(self):
         self.canvas = Canvas(
             self.window,
@@ -32,7 +32,7 @@ class tk_gui:
             highlightthickness=0,
             relief="ridge"
         )
-    
+
     def dialog(self, option_1, func_1, flag, option_2, func_2, log):
         self.canvas()
         # btn 1 - OK
