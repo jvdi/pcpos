@@ -85,6 +85,5 @@ try:
     ''')
     sqlite.commit()
     sqlite.close()
-    print('Pay Tables -> Created')
 except:
-    print('Pay Tables -> Exist')
+    pass
