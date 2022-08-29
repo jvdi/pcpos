@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from db.db_con import *
-from gui import tk_gui
+from gui_for_message import tk_gui
 import os
 from dotenv import load_dotenv
 from time import sleep
@@ -12,7 +12,11 @@ import json as jsn
 load_dotenv()
 
 
-while True:
+# Flag for process Control
+run_flag = True
+
+# Process
+while run_flag:
     sleep(3)  # Witing time for check ms-db
 
     # Get Row from mssql
@@ -67,7 +71,7 @@ while True:
         elif last_pay_record_id[0] < doch_id:
             # Send request to pay-terminal
             def send_prc():
-                try:    
+                try:
                     req = requests.post(
                         'http://'+os.getenv('SADAD_REST_API_IP')+':8050/api/Sale', json=data)
                     global json
@@ -76,7 +80,7 @@ while True:
                     req_gui = tk_gui()
                     req_gui.dialog(
                         'button_3.png',
-                        exit,
+                        gui_tray.stop,
                         True,
                         None,
                         None,
@@ -120,7 +124,7 @@ while True:
     # Pec transAction
     elif acc_number == 3 and price_to_send != 0:
         pec_service_api_dir = os.getenv('PEC_API_DIR')
-        
+
         # Init Status
         stat = 'بدون وضعیت'
         stat_flg = True
@@ -132,7 +136,7 @@ while True:
             pec_gui = tk_gui()
             pec_gui.dialog(
                 'button_3.png',
-                exit,
+                gui_tray.stop,
                 True,
                 None,
                 None,
@@ -145,7 +149,7 @@ while True:
         SELECT * FROM pay ORDER BY rowid DESC;
         ''')
         last_pay_record_id = sqlite.fetchone()
-        
+
         # Remove TransAction - if removed
         if last_pay_record_id[0] > doch_id:
             sqlite.execute('''
@@ -168,11 +172,12 @@ while True:
                 file = open(request_file, 'w')
                 file.write(
                     'Amount={}\ntype={}\nIP={}\nport={}'.format(
-                        price_to_send, os.getenv('PEC_CON_TYPE'), os.getenv('PEC_DEVICE_IP'), os.getenv('PEC_DEVICE_PORT')
+                        price_to_send, os.getenv('PEC_CON_TYPE'), os.getenv(
+                            'PEC_DEVICE_IP'), os.getenv('PEC_DEVICE_PORT')
                     )
                 )
                 file.close()
-            
+
             # Check for sent transAction
             def check_for_sent():
                 not_sent = True
@@ -199,7 +204,7 @@ while True:
                         stat = 'نتیجه درخواست - آمد'
                     else:
                         pass
-            
+
             # TransAction
             def do_trans_action():
                 write_request()
@@ -227,7 +232,7 @@ while True:
                         return 'رمز نامعتبر است'
                     else:
                         return 'خطای ناشناخته'
-                
+
                 # Open response file
                 file = open(response_file, 'r')
                 # Read a line of file and close & remove it
@@ -244,12 +249,14 @@ while True:
                     break
                 # Fail TransAction -> Show Error
                 else:
-                    json_text = '{ "PcPosStatusCode":"'+result+'", "PcPosStatus":"'+stat+'", "ResponseCodeMessage":"'+error_message(result)+'"}'
+                    json_text = '{ "PcPosStatusCode":"'+result+'", "PcPosStatus":"' + \
+                        stat+'", "ResponseCodeMessage":"' + \
+                        error_message(result)+'"}'
                     json = jsn.loads(json_text)
                     # Gui
                     pec_gui = tk_gui()
-                    pec_gui.show_message(do_trans_action, abort_pay, json, 'تاپ')
-            
+                    pec_gui.show_message(
+                        do_trans_action, abort_pay, json, 'تاپ')
 
             # Show result in terminal
             for key in json:

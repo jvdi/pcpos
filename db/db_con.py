@@ -2,10 +2,16 @@ from dotenv import load_dotenv
 import sqlite3
 import pymssql
 import os
-import gui
+import gui_for_message
+from gui_for_tray_icon import TrayIcon
 
 
 load_dotenv()
+
+
+# Run tray-icon GUI
+gui_tray = TrayIcon()
+gui_tray.run_detached()
 
 
 class SqliteDb:
@@ -38,10 +44,10 @@ class MsSql:
                 database=os.getenv('MSSQL_db')
             )
         except:
-            g = gui.tk_gui()
-            g.dialog(
+            gui_messenger = gui_for_message.tk_gui()
+            gui_messenger.dialog(
                 'button_3.png',
-                exit,
+                gui_tray.stop,
                 True,
                 None,
                 None,
