@@ -105,9 +105,11 @@ while run_flag:
                 sadad_gui.show_message(send_prc, abort_pay, json, 'سداد')
 
             # Show result in terminal
+            print('********[Sadad]********')
             for key in json:
                 value = json[key]
                 print(key, ' : ', value)
+            print('******[End-Sadad]******')
 
             # Save result in sqlite pay table
             sqlite.execute('''
@@ -259,9 +261,11 @@ while run_flag:
                         do_trans_action, abort_pay, json, 'تاپ')
 
             # Show result in terminal
+            print('*********[Pec]*********')
             for key in json:
                 value = json[key]
                 print(key, ' : ', value)
+            print('*******[End-Pec]*******')
 
             # Save result in sqlite pay table
             sqlite.execute('''
