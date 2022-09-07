@@ -34,7 +34,7 @@ while run_flag:
         global price_to_send, doch_id, acc_number
         price_to_send = (int(row['BedPrice']) * int(os.getenv('PRICE_FACTOR')))
         doch_id = row['DocH_ID']
-        acc_number = row['Acc2RowID']  # 2-> Sadad & 3-> Top
+        acc_number = row['Acc2RowID']
         break
 
     ms_cur.close()
