@@ -167,6 +167,15 @@ while run_flag:
                 pec_service_api_dir+'request/', 'TransAction.txt'
             )
 
+            # Response file
+            response_file = os.path.join(
+                pec_service_api_dir+'response/', 'TransAction.txt'
+            )
+            
+            # Predict from some result error
+            if os.path.exists(response_file):
+                    os.remove(response_file)
+
             # Write new TransAction request for send to pay-terminal
             def write_request():
                 if os.path.exists(request_file):
@@ -190,11 +199,6 @@ while run_flag:
                         not_sent = False
                         global stat
                         stat = 'درخواست ارسال شد'
-
-            # Response file
-            response_file = os.path.join(
-                pec_service_api_dir+'response/', 'TransAction.txt'
-            )
 
             # Check for receive response
             def check_for_receive():
@@ -226,7 +230,9 @@ while run_flag:
             while(not_cancel):
                 # know errors
                 def error_message(r):
-                    if r == '99':
+                    if r == '00':
+                        return 'تراکنش موفق'
+                    elif r == '99':
                         return 'لغو توسط کاربر'
                     elif r == '51':
                         return 'عدم موجودی کافی'
@@ -245,25 +251,28 @@ while run_flag:
                 # Get responseCode
                 etxt = txt.split()
                 result = etxt[2]
+                
+                # Create Json Result
+                global pec_json
+                json_text = '{ "PcPosStatusCode":"'+result+'", "PcPosStatus":"' + \
+                        stat+'", "ResponseCodeMessage":"' + \
+                        error_message(result)+'"}'
+                pec_json = jsn.loads(json_text)
 
                 # Success TransAction
                 if result == '00':
                     break
                 # Fail TransAction -> Show Error
                 else:
-                    json_text = '{ "PcPosStatusCode":"'+result+'", "PcPosStatus":"' + \
-                        stat+'", "ResponseCodeMessage":"' + \
-                        error_message(result)+'"}'
-                    json = jsn.loads(json_text)
                     # Gui
                     pec_gui = tk_gui()
                     pec_gui.show_message(
-                        do_trans_action, abort_pay, json, 'تاپ')
+                        do_trans_action, abort_pay, pec_json, 'تاپ')
 
             # Show result in terminal
             print('*********[Pec]*********')
-            for key in json:
-                value = json[key]
+            for key in pec_json:
+                value = pec_json[key]
                 print(key, ' : ', value)
             print('*******[End-Pec]*******')
 
@@ -274,7 +283,7 @@ while run_flag:
             )VALUES(
                 {}, {}, {}
             )
-            '''.format(doch_id, price_to_send, json['PcPosStatusCode']))
+            '''.format(doch_id, price_to_send, pec_json['PcPosStatusCode']))
             sqlite.commit()
 
             # Close sqlite connection
