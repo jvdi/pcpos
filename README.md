@@ -26,7 +26,7 @@ Getting price from MS-SQL Server and send to Payment terminal
 
 ## Helpfull Details
 
-- Config file for set device ip and mssql ip and user pass and etc ... it's on -> root of Installation location -> .env file <-
+- Config file for set device ip and mssql ip and user pass and etc ... it's on -> root of Installation location -> .env file
 
 ## Run Source
 
