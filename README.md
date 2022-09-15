@@ -1,4 +1,7 @@
-# PCPOS API - Sadad and Pec
+## رابط ارسال مبلغ به کارتخوان برای نرم افزار حسابداری راهکار
+برای مستندات فارسی چگونگی راه اندازی رابط نرم افزاری لطفا به [آموزش راه اندازی PCPOS-API](https://github.com/jvdi/rahkar-pcpos/blob/master/README_FA.md) مراجعه    کنید - پل ارتباطی : [ارسال ایمیل به محمد جاویدی](mailto:m.javidii@yahoo.com)
+
+# Payterminal PCPOS API For Rahkar Accounting
 
 <span style="float: right;">
 <img alt="pos terminal" width="40%" src="https://user-images.githubusercontent.com/40993115/177423038-04da4538-c186-4445-86dd-9152adde42cb.png"/>
