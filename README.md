@@ -19,7 +19,7 @@ Getting price from MS-SQL Server and send to Payment terminal
 - Enable PCPOS -> in the Sadad Payment Terminal and Pec Payment terminal
 - Enable or Install Microsoft .net framework 3.5 for Sadad Rest Correctly working
 - Sadad PCPOS Rest Service (Get from Sadad  or [Sadad Rest](https://drive.google.com/file/d/1jxvKtlQ1WPAsSeMGyPDHTnTAW6Kfu9RH/view?usp=sharing))
-- Pec Windows Service (Get From Pec or <a href="https://dl.pejvakupdates.ir/update/downloads/prince/cardReaders/parsian/install/Pec-PCPOS-WindowsService-Installer.rar">Get Service Installer</a>)
+- Pec Windows Service (Get From Pec or <a href="https://drive.google.com/file/d/1MdbCYuq2LXHdqVzlAE6NOkQhGMLcd9fB/view?usp=sharing">Get Service Installer</a>)
 
 ## Install
 
