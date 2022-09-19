@@ -1,5 +1,7 @@
 ## رابط ارسال مبلغ به کارتخوان برای نرم افزار حسابداری راهکار
-برای مستندات فارسی چگونگی راه اندازی رابط نرم افزاری لطفا به این لینک مراجعه کنید : [آموزش راه اندازی PCPOS-API](https://github.com/jvdi/rahkar-pcpos/blob/master/README_FA.md) - پل ارتباطی : m.javidii@yahoo.com
+برای مستندات فارسی چگونگی راه اندازی رابط نرم افزاری لطفا به این لینک مراجعه کنید :
+- [آموزش راه اندازی PCPOS-API](https://github.com/jvdi/rahkar-pcpos/blob/master/README_FA.md)
+- پل ارتباطی : m.javidii@yahoo.com
 
 # Payterminal PCPOS API For Rahkar Accounting
 
