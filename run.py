@@ -17,7 +17,7 @@ run_flag = True
 
 # Process
 while run_flag:
-    sleep(3)  # Witing time for check ms-db
+    sleep(int(os.getenv('CHECK_TIME')))  # Witing time for check ms-db
 
     # Get Row from mssql
     # Exist Column: RowID, Fix_Acc1_ID, Fix_Acc2Type_ID, BedPrice, RowDesc, ...
