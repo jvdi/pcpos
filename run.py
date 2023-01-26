@@ -171,15 +171,27 @@ while run_flag:
             response_file = os.path.join(
                 pec_service_api_dir+'response/', 'TransAction.txt'
             )
-            
+
             # Predict from some result error
             if os.path.exists(response_file):
-                    os.remove(response_file)
+                not_remove = True
+                while not_remove:
+                    try:
+                        os.remove(response_file)
+                        not_remove = False
+                    except:
+                        pass
 
             # Write new TransAction request for send to pay-terminal
             def write_request():
                 if os.path.exists(request_file):
-                    os.remove(request_file)
+                    not_remove = True
+                    while not_remove:
+                        try:
+                            os.remove(request_file)
+                            not_remove = False
+                        except:
+                            pass
                 file = open(request_file, 'w')
                 file.write(
                     'Amount={}\ntype={}\nIP={}\nport={}'.format(
@@ -246,17 +258,23 @@ while run_flag:
                 # Read a line of file and close & remove it
                 txt = file.readline()
                 file.close()
-                os.remove(response_file)
+                not_remove = True
+                while not_remove:
+                    try:
+                        os.remove(response_file)
+                        not_remove = False
+                    except:
+                        pass
 
                 # Get responseCode
                 etxt = txt.split()
                 result = etxt[2]
-                
+
                 # Create Json Result
                 global pec_json
                 json_text = '{ "PcPosStatusCode":"'+result+'", "PcPosStatus":"' + \
-                        stat+'", "ResponseCodeMessage":"' + \
-                        error_message(result)+'"}'
+                    stat+'", "ResponseCodeMessage":"' + \
+                    error_message(result)+'"}'
                 pec_json = jsn.loads(json_text)
 
                 # Success TransAction
