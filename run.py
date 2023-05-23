@@ -40,7 +40,7 @@ while run_flag:
     ms_cur.close()
 
     # Sadad transAction
-    if acc_number == int(os.getenv('SADAD_ACC_ID')) and price_to_send != 0:
+    if (str(os.getenv('SADAD_RUN')) == 'YES') and acc_number == int(os.getenv('SADAD_ACC_ID')) and price_to_send != 0:
         # Set data for sending to pay-terminal
         data = {
             "DeviceIp": os.getenv('SADAD_DEVICE_IP'),
@@ -124,7 +124,7 @@ while run_flag:
             # Close sqlite connection
             sqlite.close()
     # Pec transAction
-    elif acc_number == int(os.getenv('PEC_ACC_ID')) and price_to_send != 0:
+    elif (str(os.getenv('PEC_ENABLE')) == 'YES') and acc_number == int(os.getenv('PEC_ACC_ID')) and price_to_send != 0:
         pec_service_api_dir = os.getenv('PEC_API_DIR')
 
         # Init Status
