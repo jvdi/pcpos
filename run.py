@@ -172,7 +172,7 @@ while run_flag:
                 pec_service_api_dir+'response/', 'TransAction.txt'
             )
 
-            # Predict from some result error
+            # Clean old result (if exist)
             if os.path.exists(response_file):
                 not_remove = True
                 while not_remove:
@@ -192,6 +192,7 @@ while run_flag:
                             not_remove = False
                         except:
                             pass
+
                 file = open(request_file, 'w')
                 file.write(
                     'Amount={}\ntype={}\nIP={}\nport={}'.format(
@@ -201,7 +202,7 @@ while run_flag:
                 )
                 file.close()
 
-            # Check for sent transAction
+            # TransAction is Sent?
             def check_for_sent():
                 not_sent = True
                 while(not_sent):
@@ -228,6 +229,7 @@ while run_flag:
                 write_request()
                 check_for_sent()
                 check_for_receive()
+            
             # Do TransAction
             do_trans_action()
 
@@ -258,13 +260,6 @@ while run_flag:
                 # Read a line of file and close & remove it
                 txt = file.readline()
                 file.close()
-                not_remove = True
-                while not_remove:
-                    try:
-                        os.remove(response_file)
-                        not_remove = False
-                    except:
-                        pass
 
                 # Get responseCode
                 etxt = txt.split()
@@ -276,16 +271,27 @@ while run_flag:
                     stat+'", "ResponseCodeMessage":"' + \
                     error_message(result)+'"}'
                 pec_json = jsn.loads(json_text)
+                
+                # For delete extra Result File
+                def remove_result():
+                    not_remove = True
+                    while not_remove:
+                        try:
+                            os.remove(response_file)
+                            not_remove = False
+                        except:
+                            pass
 
                 # Success TransAction
                 if result == '00':
+                    remove_result()
                     break
                 # Fail TransAction -> Show Error
                 else:
+                    remove_result()
                     # Gui
                     pec_gui = tk_gui()
-                    pec_gui.show_message(
-                        do_trans_action, abort_pay, pec_json, 'تاپ')
+                    pec_gui.show_message(do_trans_action, abort_pay, pec_json, 'تاپ')
 
             # Show result in terminal
             print('*********[Pec]*********')
