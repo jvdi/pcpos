@@ -1,37 +1,13 @@
+import pymssql, os, gui_for_message
+from .sqlite import SqliteDb
 from dotenv import load_dotenv
-import sqlite3
-import pymssql
-import os
-import gui_for_message
 from gui_for_tray_icon import TrayIcon
 
-
 load_dotenv()
-
 
 # Run tray-icon GUI
 gui_tray = TrayIcon()
 gui_tray.run_detached()
-
-
-class SqliteDb:
-    def __init__(self):
-        # Connectiton for sqlite
-        self.sqlite_con = sqlite3.connect('db/database.sqlite3')
-        self.sqlite_cur = self.sqlite_con.cursor()
-
-    def execute(self, sql):
-        self.sqlite_cur.execute(sql)
-
-    def fetchone(self):
-        return self.sqlite_cur.fetchone()
-
-    def commit(self):
-        self.sqlite_con.commit()
-
-    def close(self):
-        self.sqlite_cur.close()
-
 
 class MsSql:
     def __init__(self):
