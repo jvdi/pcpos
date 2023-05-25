@@ -124,7 +124,7 @@ while run_flag:
             # Close sqlite connection
             sqlite.close()
     # Pec transAction
-    elif (str(os.getenv('PEC_ENABLE')) == 'YES') and acc_number == int(os.getenv('PEC_ACC_ID')) and price_to_send != 0:
+    elif (str(os.getenv('PEC_RUN')) == 'YES') and acc_number == int(os.getenv('PEC_ACC_ID')) and price_to_send != 0:
         pec_service_api_dir = os.getenv('PEC_API_DIR')
 
         # Init Status
