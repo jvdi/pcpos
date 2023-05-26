@@ -226,6 +226,10 @@ while run_flag:
 
             # TransAction
             def do_trans_action():
+                try:
+                    os.remove(response_file)
+                except:
+                    pass
                 write_request()
                 check_for_sent()
                 check_for_receive()
@@ -292,10 +296,11 @@ while run_flag:
                     break
                 # Fail TransAction -> Show Error
                 else:
-                    remove_result()
                     # Gui
                     pec_gui = tk_gui()
                     pec_gui.show_message(do_trans_action, abort_pay, pec_json, 'تاپ')
+                    if not_cancel == False:
+                        remove_result()
 
             # Show result in terminal
             print('*********[Pec]*********')
