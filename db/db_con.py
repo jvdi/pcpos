@@ -1,4 +1,4 @@
-import pymssql, os, gui_for_message
+import pymssql, os, gui_for_message, time
 from .sqlite import SqliteDb
 from dotenv import load_dotenv
 from gui_for_tray_icon import TrayIcon
@@ -12,6 +12,8 @@ gui_tray.run_detached()
 class MsSql:
     def __init__(self):
         try:
+            # Wait for load sql - or check to load
+            time.sleep(int(os.getenv('DB_WAIT_TIME')))
             # Connection for mssql
             self.msSqlCon = pymssql.connect(
                 host=os.getenv('MSSQL_HOST'),
