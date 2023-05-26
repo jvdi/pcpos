@@ -263,7 +263,11 @@ while run_flag:
 
                 # Get responseCode
                 etxt = txt.split()
-                result = etxt[2]
+                result = '01'
+                try:
+                    result = etxt[2]
+                except:
+                    pass
 
                 # Create Json Result
                 global pec_json
