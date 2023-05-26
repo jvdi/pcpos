@@ -23,7 +23,7 @@ class MsSql:
             gui_messenger = gui_for_message.tk_gui()
             gui_messenger.dialog(
                 'button_3.png',
-                gui_tray.stop,
+                lambda: [gui_tray.stop(), exit()],
                 True,
                 None,
                 None,
