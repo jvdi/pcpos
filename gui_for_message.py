@@ -14,7 +14,7 @@ def relative_to_assets(path: str) -> Path:
 class tk_gui:
     def __init__(self):
         self.window = Tk()
-        self.window.title('PCPos 2.1.3')
+        self.window.title('PCPos 2.2.0')
         self.window.iconbitmap('assets/pos.ico')
         self.window.eval('tk::PlaceWindow . center')
         self.window.geometry("300x150")
