@@ -12,8 +12,6 @@ gui_tray.run_detached()
 class MsSql:
     def __init__(self):
         try:
-            # Wait for load sql - or check to load
-            time.sleep(int(os.getenv('DB_WAIT_TIME')))
             # Connection for mssql
             self.msSqlCon = pymssql.connect(
                 host=os.getenv('MSSQL_HOST'),

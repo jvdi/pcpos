@@ -15,6 +15,9 @@ load_dotenv()
 # Flag for process Control
 run_flag = True
 
+# Wait for load sql - or check to load
+time.sleep(int(os.getenv('DB_WAIT_TIME')))
+
 # Process
 while run_flag:
     sleep(int(os.getenv('CHECK_TIME')))  # Witing time for check ms-db
