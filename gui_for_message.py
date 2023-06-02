@@ -4,17 +4,18 @@ from tkinter import Tk, Canvas, Button, PhotoImage, scrolledtext
 
 # asset directory
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+ASSETS_PATH = OUTPUT_PATH / Path('./assets')
 
-
+# func for get asset-media with name
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-
+# UserInterface Communicate window
 class tk_gui:
+    # window details
     def __init__(self):
         self.window = Tk()
-        self.window.title('PCPos 2.2.0')
+        self.window.title('PCPos 2.2.0 - Log')
         self.window.iconbitmap('assets/pos.ico')
         self.window.eval('tk::PlaceWindow . center')
         self.window.geometry("300x150")
@@ -22,6 +23,7 @@ class tk_gui:
         self.window.resizable(False, False)
         self.window.attributes('-topmost', True)
 
+    # canvas obj for window in tk
     def canvas(self):
         self.canvas = Canvas(
             self.window,
@@ -33,6 +35,7 @@ class tk_gui:
             relief="ridge"
         )
 
+    # Dialog for get response from user
     def dialog(self, option_1, func_1, flag, option_2, func_2, log):
         self.canvas()
         # btn 1 - OK
@@ -71,7 +74,7 @@ class tk_gui:
                 width=90.0,
                 height=46.0
             )
-        # TextAria
+        # TextAria for show log
         entry_image_1 = PhotoImage(
             file=relative_to_assets("entry_1.png"))
         entry_bg_1 = self.canvas.create_image(
@@ -97,6 +100,7 @@ class tk_gui:
         entry_1.configure(state='disabled')
         self.window.mainloop()
 
+    # Fail TransAction - window
     def show_message(self, send_prc, abort_pay, json, pay_name):
         # Do TransAction again btn or Cancell TransAction btn
         self.dialog(

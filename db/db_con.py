@@ -1,9 +1,12 @@
-import pymssql, os, gui_for_message, time
+import pymssql, os, gui_for_message
 from .sqlite import SqliteDb
 from dotenv import load_dotenv
 from gui_for_tray_icon import TrayIcon
 
 load_dotenv()
+
+# Flag for process Control - For Stop app
+run_flag = True
 
 # Run tray-icon GUI
 gui_tray = TrayIcon()

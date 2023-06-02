@@ -2,25 +2,19 @@
 
 from db.db_con import *
 from gui_for_message import tk_gui
-import os
+import os, time, requests
 from dotenv import load_dotenv
-from time import sleep
-import requests
 import json as jsn
 
 
 load_dotenv()
-
-
-# Flag for process Control
-run_flag = True
 
 # Wait for load sql - or check to load
 time.sleep(int(os.getenv('DB_WAIT_TIME')))
 
 # Process
 while run_flag:
-    sleep(int(os.getenv('CHECK_TIME')))  # Witing time for check ms-db
+    time.sleep(int(os.getenv('CHECK_TIME')))  # Witing time for check ms-db
 
     # Get Row from mssql
     # Exist Column: RowID, Fix_Acc1_ID, Fix_Acc2Type_ID, BedPrice, RowDesc, ...

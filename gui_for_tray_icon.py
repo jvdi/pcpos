@@ -1,9 +1,8 @@
 import pystray, webbrowser
 from PIL import Image
 
-
-# TrayIcon for show app is run
-class TrayIcon():
+# TrayIcon -> icon
+class TrayIcon:
     def __init__(self):
         self.image = Image.open('assets/pos.ico')
         self.menu = (
