@@ -362,7 +362,8 @@ while run_flag:
             result = do_trans_action()
             while not_done:
                 print(result)
-                if result[1] == '110':
+                print(result[1])
+                if result[1] == '0':
                     print(result[0]+': '+result[1])
                     print(result[3])
                     abort_pay()
@@ -384,7 +385,7 @@ while run_flag:
             )VALUES(
                 {}, {}, {}
             )
-            '''.format(doch_id, price_to_send, AsanP_json['PcPosStatusCode']))
+            '''.format(doch_id, price_to_send, result[1]))
             sqlite.commit()
 
             # Close sqlite connection
