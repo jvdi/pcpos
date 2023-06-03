@@ -5,7 +5,12 @@ from gui_for_message import tk_gui
 import os, time, requests
 from dotenv import load_dotenv
 import json as jsn
+import clr, re
 
+# For dotnet dll
+clr.AddReference("module/PosInterface")
+from PosInterface import PCPos
+from System import DateTime
 
 load_dotenv()
 
@@ -22,7 +27,7 @@ while run_flag:
     ms_cur.execute('''
     SELECT * 
     FROM DocD
-    WHERE Fix_Acc1_ID=5 AND Fix_Acc2Type_ID=2 AND (Acc2RowID=2 OR Acc2RowID=3)
+    WHERE Fix_Acc1_ID=5 AND Fix_Acc2Type_ID=2 AND (Acc2RowID=2 OR Acc2RowID=3 OR Acc2RowID=4)
     ORDER BY RowID DESC;
     ''')
 
@@ -314,6 +319,72 @@ while run_flag:
                 {}, {}, {}
             )
             '''.format(doch_id, price_to_send, pec_json['PcPosStatusCode']))
+            sqlite.commit()
+
+            # Close sqlite connection
+            sqlite.close()
+    # Asan-P transAction
+    elif (str(os.getenv('ASAN-P_RUN')) == 'YES') and acc_number == int(os.getenv('ASAN-P_ACC_ID')) and price_to_send != 0:
+        pcpos = PCPos(int(os.getenv('ASAN-P_DEVICE_PORT')))
+        pcpos.InitLAN(os.getenv('ASAN-P_DEVICE_IP'))
+
+        # Get last sent-pay
+        sqlite = SqliteDb()
+        sqlite.execute('''
+        SELECT * FROM pay ORDER BY rowid DESC;
+        ''')
+        last_pay_record_id = sqlite.fetchone()
+
+        # Remove TransAction - if removed
+        if last_pay_record_id[0] > doch_id:
+            sqlite.execute('''
+            DELETE FROM Pay WHERE id='{}';
+            '''.format(last_pay_record_id[0]))
+            sqlite.commit()
+            # Close sqlite connection
+            sqlite.close()
+        # Do a new TransAction if it's a new
+        elif last_pay_record_id[0] < doch_id:
+            def do_trans_action():
+                # price, empty, doc_id, time
+                send_request = pcpos.DoSyncPayment(str(price_to_send), "", str(doch_id), DateTime.Now)
+                response = str(send_request)
+                end_result = re.split('= |;', response)
+                return end_result
+
+            # For cancell TransAction 
+            not_done = True
+
+            def abort_pay():
+                global not_done
+                not_done = False
+
+            result = do_trans_action()
+            while not_done:
+                print(result)
+                if result[1] == '110':
+                    print(result[0]+': '+result[1])
+                    print(result[3])
+                    not_done = False
+                else:
+                    # Create Json Result
+                    json_text = '{ "PcPosStatusCode":"'+result[1]+'", "PcPosStatus":"' + \
+                    'فعال'+'", "ResponseCodeMessage":"' + \
+                    result[3]+'"}'
+                    AsanP_json = jsn.loads(json_text)
+                    
+                    # Show Message
+                    AsanP_gui = tk_gui()
+                    AsanP_gui.show_message(do_trans_action, abort_pay, AsanP_json, 'آپ')
+            
+            # Save result in sqlite pay table
+            sqlite.execute('''
+            INSERT INTO pay(
+                id, price, status
+            )VALUES(
+                {}, {}, {}
+            )
+            '''.format(doch_id, price_to_send, AsanP_json['PcPosStatusCode']))
             sqlite.commit()
 
             # Close sqlite connection
