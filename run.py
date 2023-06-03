@@ -365,7 +365,7 @@ while run_flag:
                 if result[1] == '110':
                     print(result[0]+': '+result[1])
                     print(result[3])
-                    not_done = False
+                    abort_pay()
                 else:
                     # Create Json Result
                     json_text = '{ "PcPosStatusCode":"'+result[1]+'", "PcPosStatus":"' + \
