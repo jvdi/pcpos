@@ -5,6 +5,13 @@
 
 # Payterminal PCPOS API For Rahkar Accounting
 <p>Tested on Free version of Rahkar</p>
+
+## Suported Pay-Terminals:
+
+- Sadad
+- Persian E-Commerce
+- AsanPardakht
+
 <span style="float: right;">
 <img alt="pos terminal" width="40%" src="https://user-images.githubusercontent.com/40993115/177423038-04da4538-c186-4445-86dd-9152adde42cb.png"/>
 <img alt="api tkinter gui" width="40%" src="https://user-images.githubusercontent.com/40993115/179966279-a3c424e5-be8a-4406-8876-d49d5b0a3bd1.png"/>
@@ -29,11 +36,12 @@ Getting price from Rahkar MS-SQL Server and send to Payment terminal
 
 - Double click on it and install simply (Do not start PCPosAPI before Config it !!!)
 
-## Helpfull Details and Config
+## Config
 
 - Configure the .env file to set pay terminals IP and MySQL IP and user password etc … → .env file is on root of Installation location.
+- Everything explained on the config file (with comment)
 
-## Run Source
+## Run From Source
 
 1. Install RahkarPOS v6.0.0.0 or v1.0.0.0 + [Requirements](https://github.com/jvdi/rahkar-pcpos#requirements)
 2. For support Windows 7 -> recommend install Python 3.7.4
