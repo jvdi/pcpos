@@ -27,7 +27,7 @@ while run_flag:
     ms_cur.execute('''
     SELECT * 
     FROM DocD
-    WHERE Fix_Acc1_ID=5 AND Fix_Acc2Type_ID=2 AND (Acc2RowID=2 OR Acc2RowID=3 OR Acc2RowID=4)
+    WHERE Fix_Acc1_ID=5 AND Fix_Acc2Type_ID=2 AND (Acc2RowID='''+os.getenv('SADAD_ACC_ID')+''' OR Acc2RowID='''+os.getenv('PEC_ACC_ID')+''' OR Acc2RowID='''+os.getenv('ASAN-P_ACC_ID')+''')
     ORDER BY RowID DESC;
     ''')
 
