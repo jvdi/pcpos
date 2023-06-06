@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import json as jsn
 import clr, re
 
-# For dotnet dll
+# Load asanpardakht dll
 clr.AddReference("module/PosInterface")
 from PosInterface import PCPos
 from System import DateTime
@@ -17,7 +17,8 @@ load_dotenv()
 # Wait for load sql - or check to load
 time.sleep(int(os.getenv('DB_WAIT_TIME')))
 
-# Process
+# run_flag is set in db_con file
+# Main process of app
 while run_flag:
     time.sleep(int(os.getenv('CHECK_TIME')))  # Witing time for check ms-db
 
