@@ -20,11 +20,13 @@ time.sleep(int(os.getenv('DB_WAIT_TIME')))
 # run_flag is set in db_con file
 # Main process of app
 while run_flag:
-    time.sleep(int(os.getenv('CHECK_TIME')))  # Witing time for check ms-db
+    time.sleep(int(os.getenv('CHECK_TIME')))  # Witing time for check ms-db to get new TransAction
+
+    # Start a connection to mssql server
+    ms_cur = MsSql()
 
     # Get Row from mssql
     # Exist Column: RowID, Fix_Acc1_ID, Fix_Acc2Type_ID, BedPrice, RowDesc, ...
-    ms_cur = MsSql()
     ms_cur.execute('''
     SELECT * 
     FROM DocD
@@ -32,7 +34,7 @@ while run_flag:
     ORDER BY RowID DESC;
     ''')
 
-    # Get price and document id from mssql
+    # Get price and document id from mssql and save to Gloabal var
     for row in ms_cur.fetch():
         global price_to_send, doch_id, acc_number
         price_to_send = (int(row['BedPrice']) * int(os.getenv('PRICE_FACTOR')))
@@ -40,6 +42,7 @@ while run_flag:
         acc_number = row['Acc2RowID']
         break
 
+    # Close connection of mssql
     ms_cur.close()
 
     # Sadad transAction
