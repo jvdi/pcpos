@@ -1,16 +1,8 @@
 import pymssql, os, gui_for_message
 from .sqlite import SqliteDb
 from dotenv import load_dotenv
-from gui_for_tray_icon import TrayIcon
 
 load_dotenv()
-
-# Flag for process Control - For Stop app
-run_flag = True
-
-# Run tray-icon GUI
-gui_tray = TrayIcon()
-gui_tray.run_detached()
 
 class MsSql:
     def __init__(self):
@@ -26,7 +18,7 @@ class MsSql:
             gui_messenger = gui_for_message.tk_gui()
             gui_messenger.dialog(
                 'button_3.png',
-                lambda: [gui_tray.stop(), exit()],
+                lambda: [exit()],
                 True,
                 None,
                 None,
