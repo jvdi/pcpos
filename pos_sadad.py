@@ -2,7 +2,7 @@ import os, requests
 from db.db_con import SqliteDb
 from gui_for_message import tk_gui
 
-def sadad_pos(price_to_send, doch_id, gui_tray):
+def sadad(price_to_send, doch_id, gui_tray):
     # Set data for sending to pay-terminal
     data = {
         "DeviceIp": os.getenv('SADAD_DEVICE_IP'),
