@@ -1,6 +1,9 @@
 import os, requests
 from db.db_con import SqliteDb
 from gui_for_message import tk_gui
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def sadad(price_to_send, doch_id, gui_tray):
     # Set data for sending to pay-terminal

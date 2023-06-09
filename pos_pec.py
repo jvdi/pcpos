@@ -2,6 +2,9 @@ import os
 from gui_for_message import tk_gui
 from db.db_con import SqliteDb
 import json as jsn
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def pec(doch_id, price_to_send, gui_tray):
     pec_service_api_dir = os.getenv('PEC_API_DIR')
