@@ -5,7 +5,6 @@ from pos_sadad import sadad
 from pos_pec import pec
 from pos_asanp import asanp
 from gui_for_tray_icon import TrayIcon
-from gui_for_message import tk_gui
 import os, time
 from dotenv import load_dotenv
 
