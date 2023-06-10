@@ -1,5 +1,5 @@
 import os, requests
-from db.db_con import SqliteDb
+from .db.sqlite import SqliteDb
 from gui_for_message import tk_gui
 from dotenv import load_dotenv
 

@@ -1,6 +1,6 @@
 import os
 from gui_for_message import tk_gui
-from db.db_con import SqliteDb
+from .db.sqlite import SqliteDb
 import json as jsn
 from dotenv import load_dotenv
 

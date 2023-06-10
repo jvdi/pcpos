@@ -1,13 +1,13 @@
 import os, clr, re
 import json as jsn
-from db.db_con import SqliteDb
+from .db.sqlite import SqliteDb
 from gui_for_message import tk_gui
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Load asanpardakht dll
-clr.AddReference("module/PosInterface")
+clr.AddReference("module/pos_pec_PosInterface")
 from PosInterface import PCPos
 from System import DateTime
 
