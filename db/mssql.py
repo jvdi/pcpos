@@ -1,5 +1,4 @@
 import pymssql, os, gui_for_message
-from .sqlite import SqliteDb
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -35,26 +34,3 @@ class MsSql:
 
     def close(self):
         self.msSqlCon.close()
-
-
-# Create table in sqlite for save pay-log
-try:
-    sqlite = SqliteDb()
-    sqlite.execute('''
-    CREATE TABLE Pay(
-        id INT NOT NULL,
-        price INT NOT NULL,
-        status INT NOT NULL
-    );
-    ''')
-    sqlite.execute('''
-    INSERT INTO pay(
-            id, price, status
-        )VALUES(
-            0, 0, 0
-        );
-    ''')
-    sqlite.commit()
-    sqlite.close()
-except:
-    pass

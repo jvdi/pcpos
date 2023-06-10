@@ -112,9 +112,11 @@ def pec(doch_id, price_to_send, gui_tray):
                 os.remove(response_file)
             except:
                 pass
-            write_request()
-            check_for_sent()
-            check_for_receive()
+        
+        # Prepare request
+        write_request()
+        check_for_sent()
+        check_for_receive()
 
         # Do TransAction
         do_trans_action()

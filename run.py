@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from db.db_con import *
+from .db.mssql import MsSql
+from .db.sqlite import SqliteDb
 from pos_sadad import sadad
 from pos_pec import pec
 from pos_asanp import asanp
@@ -9,6 +10,28 @@ import os, time
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Create table in sqlite for save pay-log
+try:
+    sqlite = SqliteDb()
+    sqlite.execute('''
+    CREATE TABLE Pay(
+        id INT NOT NULL,
+        price INT NOT NULL,
+        status INT NOT NULL
+    );
+    ''')
+    sqlite.execute('''
+    INSERT INTO pay(
+            id, price, status
+        )VALUES(
+            0, 0, 0
+        );
+    ''')
+    sqlite.commit()
+    sqlite.close()
+except:
+    pass
 
 # Wait for load sql - or check to load
 time.sleep(int(os.getenv('DB_WAIT_TIME')))
